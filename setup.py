@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'psutil'],
     zip_safe=True,
     maintainer='wataru',
     maintainer_email='s23c1072kg@s.chibakoudai.jp',
@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'system_info_publisher = system_monitor.system_info_publisher:main',
         ],
     },
 )
