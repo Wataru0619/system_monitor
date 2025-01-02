@@ -43,7 +43,7 @@ class SystemInfoPublisher(Node):
                        f"Memory Usage: {memory_used:.2f} GB / {memory_total:.2f} GB ({memory_usage}% used)\n")
 
         except Exception as e:
-            message = "Error retrieving system info."
+            message = f"Error retrieving system info: {str(e)}"
 
         # ROS2 メッセージとして送信
         msg = String()
@@ -54,11 +54,14 @@ class SystemInfoPublisher(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = SystemInfoPublisher()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(node)  # ノードをスピンさせる
+    except KeyboardInterrupt:
+        pass  # 手動でCtrl+Cで終了した場合に備える
+    finally:
+        node.destroy_node()  # ノードを明示的に削除
+        rclpy.shutdown()     # rclpyのシャットダウン
 
 if __name__ == '__main__':
     main()
-
 
