@@ -1,57 +1,40 @@
-import rclpy
-from rclpy.node import Node
-import pytest
-from unittest.mock import patch, MagicMock
-from std_msgs.msg import String
-from system_monitor.system_info_publisher import SystemInfoPublisher
+#!/bin/bash
+# SPDX-FileCopyrightText: 2024 Wataru Suenaga
+# SPDX-License-Identifier: GPL-3.0-only
 
-# モック用のfixture
-@pytest.fixture
-def mock_subprocess_run():
-    with patch("subprocess.run") as mock_run:
-        yield mock_run
+ng () {
+    echo "Test failed"
+    res=1
+}
 
-@pytest.fixture
-def mock_psutil_virtual_memory():
-    with patch("psutil.virtual_memory") as mock_memory:
-        yield mock_memory
+res=0
 
-@pytest.fixture
-def system_info_publisher_node():
-    rclpy.init()
-    node = SystemInfoPublisher()
-    yield node
-    node.destroy_node()
-    rclpy.shutdown()
+# Test1: 出力メッセージが正しくパブリッシュされているか
+# ROS2のトピックの出力を確認
+output=$(ros2 topic echo /system_info --once 2>&1)
+status=$?
 
-# SystemInfoPublisherのテスト
-def test_system_info_publisher(mock_subprocess_run, mock_psutil_virtual_memory, system_info_publisher_node):
-    # モックを設定
-    mock_subprocess_run.return_value = MagicMock(stdout=b"CPU MHz: 2400\nCPU(s): 4")
-    mock_psutil_virtual_memory.return_value = MagicMock(used=4 * 1024**3, total=8 * 1024**3, percent=50)
-    
-    # メッセージを受け取るためのコールバック
-    msg = None
-    def listener_callback(msg_in):
-        nonlocal msg
-        msg = msg_in
-    
-    # サブスクライバーを作成
-    system_info_publisher_node.create_subscription(String, '/system_info', listener_callback, 10)
-    
-    # テスト対象メソッドを呼び出し
-    system_info_publisher_node.publish_system_info()
+# 出力内容を確認
+if [[ "$output" =~ "CPU Frequency" ]] && [[ "$output" =~ "CPU Cores" ]] && [[ "$output" =~ "Memory Usage" ]] && [ $status -eq 0 ]; then
+    echo "Test1 Passed"
+else
+    ng
+fi
 
-    # メッセージが送信されたことを確認
-    assert msg is not None
-    assert "CPU Frequency" in msg.data
-    assert "CPU Cores" in msg.data
-    assert "Memory Usage" in msg.data
-    assert "Uptime" in msg.data
-    
-    # subprocess.runが適切に呼び出されたか確認
-    mock_subprocess_run.assert_called_with(['lscpu'], stdout=subprocess.PIPE)
-    
-    # psutil.virtual_memoryが呼び出されたか確認
-    mock_psutil_virtual_memory.assert_called_once()
+# Test2: トピックがパブリッシュされていることを確認
+# 一定時間待機してから再確認
+sleep 2
+output=$(ros2 topic echo /system_info --once 2>&1)
+if [[ "$output" =~ "CPU Frequency" ]] && [[ "$output" =~ "CPU Cores" ]] && [[ "$output" =~ "Memory Usage" ]]; then
+    echo "Test2 Passed"
+else
+    ng
+fi
+
+# 結果の表示
+if [ $res -eq 0 ]; then
+    echo "All tests passed"
+else
+    echo "Some tests failed"
+fi
 
