@@ -37,14 +37,10 @@ class SystemInfoPublisher(Node):
             memory_total = memory_info.total / (1024 ** 3)  # GB 単位に変換
             memory_usage = memory_info.percent
 
-            # システムの稼働時間を取得
-            uptime = subprocess.check_output("uptime -p", shell=True).decode().strip()
-
             # メッセージを作成
             message = (f"CPU Frequency: {cpu_freq} MHz\n"
                        f"CPU Cores: {cpu_cores}\n"
-                       f"Memory Usage: {memory_used:.2f} GB / {memory_total:.2f} GB ({memory_usage}% used)\n"
-                       f"Uptime: {uptime}")
+                       f"Memory Usage: {memory_used:.2f} GB / {memory_total:.2f} GB ({memory_usage}% used)\n")
 
         except Exception as e:
             message = "Error retrieving system info."
