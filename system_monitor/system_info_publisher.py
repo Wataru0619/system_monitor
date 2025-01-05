@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.timer import Timer
 import subprocess
 import psutil
 from std_msgs.msg import String
@@ -8,7 +9,8 @@ class SystemInfoPublisher(Node):
     def __init__(self):
         super().__init__('system_info_publisher')
         self.publisher_ = self.create_publisher(String, '/system_info', 10)
-        self.publish_system_info()
+        # タイマーを設定して5秒ごとにpublish_system_infoを呼び出す
+        self.timer = self.create_timer(5.0, self.publish_system_info)
 
     def publish_system_info(self):
         try:
@@ -64,4 +66,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+
 
