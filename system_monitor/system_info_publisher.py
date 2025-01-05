@@ -1,3 +1,7 @@
+#!/bin/bash
+# SPDX-FileCopyrightText: 2025 Wataru Suenaga
+# SPDX-License-Identifier: GPL-3.0-only
+
 import rclpy
 from rclpy.node import Node
 import psutil
@@ -54,3 +58,5 @@ def main(args=None):
 if __name__ == '__main__':
     main()
 
+# This software package is licensed under the GPL-3.0 License, and redistribution and usage are permitted under its terms.
+# © 2025:Wataru Suenaga
