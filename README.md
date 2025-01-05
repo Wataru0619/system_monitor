@@ -8,6 +8,7 @@
 - .github/workflows  
 GithubActions用プログラム
 - resource  
+リソースファイル（今回は使用しない））
 - system_monitor
 システムのCPU使用率　メモリ使用率　送受信データ量の情報を取得し、指定したト>
 ピック(`/system_info`)にパブリッシュするプログラム。
