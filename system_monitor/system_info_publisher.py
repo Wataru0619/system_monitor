@@ -1,7 +1,5 @@
 import rclpy
 from rclpy.node import Node
-from rclpy.timer import Timer
-import subprocess
 import psutil
 from std_msgs.msg import String
 
@@ -14,28 +12,6 @@ class SystemInfoPublisher(Node):
 
     def publish_system_info(self):
         try:
-            # `lscpu` コマンドを使用して CPU の周波数とコア数を取得
-            result = subprocess.run(['lscpu'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            if result.returncode != 0:
-                raise Exception("Failed to run lscpu command")
-            
-            output = result.stdout.decode('utf-8')
-
-            cpu_freq = None
-            cpu_cores = None
-
-            # "CPU MHz" と "CPU(s)" 行を抽出
-            for line in output.splitlines():
-                if "CPU MHz" in line:
-                    cpu_freq = line.split(":")[1].strip()
-                if "CPU(s)" in line:
-                    cpu_cores = line.split(":")[1].strip()
-
-            if cpu_freq is None:
-                cpu_freq = "Unknown"
-            if cpu_cores is None:
-                cpu_cores = "Unknown"
-
             # CPU使用率を取得
             cpu_usage = psutil.cpu_percent(interval=1)  # 1秒間隔でCPU使用率を取得
 
@@ -45,11 +21,15 @@ class SystemInfoPublisher(Node):
             memory_total = memory_info.total / (1024 ** 3)  # GB 単位に変換
             memory_usage = memory_info.percent
 
+            # ネットワーク使用量を取得
+            net_info = psutil.net_io_counters()
+            bytes_sent = net_info.bytes_sent / (1024 ** 2)  # MB単位に変換
+            bytes_recv = net_info.bytes_recv / (1024 ** 2)  # MB単位に変換
+
             # メッセージを作成
-            message = (f"CPU Frequency: {cpu_freq} MHz\n"
-                       f"CPU Cores: {cpu_cores}\n"
-                       f"CPU Usage: {cpu_usage}%\n"
-                       f"Memory Usage: {memory_used:.2f} GB / {memory_total:.2f} GB ({memory_usage}% used)\n")
+            message = (f"CPU Usage: {cpu_usage}%\n"
+                       f"Memory Usage: {memory_used:.2f} GB / {memory_total:.2f} GB ({memory_usage}% used)\n"
+                       f"Network Traffic: Sent: {bytes_sent:.2f} MB, Received: {bytes_recv:.2f} MB\n")
 
         except Exception as e:
             message = f"Error retrieving system info: {str(e)}"
