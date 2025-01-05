@@ -14,6 +14,8 @@ res=0
 output=$(ros2 topic echo /system_info --once 2>&1)
 status=$?
 
+echo "Test1 command status: $status"
+
 # 出力内容を確認
 if [[ "$output" =~ "CPU Usage" ]] && [[ "$output" =~ "Memory Usage" ]] && [[ "$output" =~ "Network Traffic" ]] && [ $status -eq 0 ]; then
     echo "Test1 Passed"
