@@ -65,11 +65,14 @@ data: 'CPU Usage: 0.0%
 ```
 # 動作環境
 - OS: Linux  
-- Python: テスト済みバージョン　3.7~3.13  
+- Python: 3.7  
+- ROS2  
 
 # テスト環境
 - ubuntu-22.04  
 
 # ライセンス
 - このソフトウェアパッケージは，GPL3.0ライセンスの下，再頒布および使用が許可されます．
+- このパッケージのテストには下記リンクのものを使用しています。
+- ryuichiueda/ubuntu22.04-ros2:latest
 - © 2025 Wataru Suenagia
