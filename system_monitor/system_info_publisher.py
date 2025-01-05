@@ -36,7 +36,8 @@ class SystemInfoPublisher(Node):
                        f"Network Traffic: Sent: {bytes_sent:.2f} MB, Received: {bytes_recv:.2f} MB\n")
 
         except Exception as e:
-            message = f"Error retrieving system info: {str(e)}"
+            self.get_logger().error(f"Error retrieving system info: {str(e)}")
+            sys.exit(1)
 
         # ROS2 メッセージとして送信
         msg = String()
