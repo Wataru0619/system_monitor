@@ -5,7 +5,22 @@
 システムのCPU周波数、コア数、メモリ使用量などの情報を取得し、指定したトピック(`/system_info`)にパブリッシュします。
 
 # 内容
-
+- .github/workflows  
+GithubActions用プログラム
+- resource  
+- system_monitor  
+- test  
+テスト用プログラム
+- COPYING  
+ライセンスに関する文章
+- README.md  
+この説明書
+- package.xml  
+ROS2パッケージ設定ファイル
+- setup.cfg  
+Pythonパッケージ設定ファイル
+- setup.py  
+Pythonパッケージインストールスクリプト
 # 使用方法
 
 # 実行例
