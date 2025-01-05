@@ -38,12 +38,6 @@ $ ros2 run system_monitor system_info_publisher
 $ ros2 topic echo /system_info
 ```
 # 実行例
-- 送信  
-```
-[INFO] [1736085754.506566148] [system_info_publisher]: Success
-[INFO] [1736085759.491369972] [system_info_publisher]: Success
-
-```
 - 受信
 ```
 data: 'CPU Usage: 0.0%
