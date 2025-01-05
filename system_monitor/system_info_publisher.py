@@ -15,7 +15,10 @@ class SystemInfoPublisher(Node):
     def publish_system_info(self):
         try:
             # `lscpu` コマンドを使用して CPU の周波数とコア数を取得
-            result = subprocess.run(['lscpu'], stdout=subprocess.PIPE)
+            result = subprocess.run(['lscpu'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if result.returncode != 0:
+                raise Exception("Failed to run lscpu command")
+            
             output = result.stdout.decode('utf-8')
 
             cpu_freq = None
@@ -33,6 +36,9 @@ class SystemInfoPublisher(Node):
             if cpu_cores is None:
                 cpu_cores = "Unknown"
 
+            # CPU使用率を取得
+            cpu_usage = psutil.cpu_percent(interval=1)  # 1秒間隔でCPU使用率を取得
+
             # メモリ使用量を取得
             memory_info = psutil.virtual_memory()
             memory_used = memory_info.used / (1024 ** 3)  # GB 単位に変換
@@ -42,6 +48,7 @@ class SystemInfoPublisher(Node):
             # メッセージを作成
             message = (f"CPU Frequency: {cpu_freq} MHz\n"
                        f"CPU Cores: {cpu_cores}\n"
+                       f"CPU Usage: {cpu_usage}%\n"
                        f"Memory Usage: {memory_used:.2f} GB / {memory_total:.2f} GB ({memory_usage}% used)\n")
 
         except Exception as e:
@@ -51,7 +58,7 @@ class SystemInfoPublisher(Node):
         msg = String()
         msg.data = message
         self.publisher_.publish(msg)
-        self.get_logger().info('success published')
+        self.get_logger().info('Successfully published system info')
 
 def main(args=None):
     rclpy.init(args=args)
@@ -66,6 +73,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-
 
