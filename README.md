@@ -8,7 +8,7 @@
 - .github/workflows  
 GithubActions用プログラム
 - resource  
-リソースファイル（今回は使用しない））
+リソースファイル（今回は使用しない）
 - system_monitor
 システムのCPU使用率　メモリ使用率　送受信データ量の情報を取得し、指定したト>
 ピック(`/system_info`)にパブリッシュするプログラム。
@@ -33,7 +33,7 @@ GithubActionsによるテスト結果バッジ
 ``` 
 $ ros2 run system_monitor system_info_publisher  
 ``` 
-3.受信側で以下のコマンドを入力し、システム情報を受信する。
+3.受信側で以下のコマンドを入力し、システム情報を受信します。
 ```
 $ ros2 topic echo /system_info
 ```
