@@ -20,7 +20,10 @@ ROS2パッケージ設定ファイル
 - setup.cfg  
 Pythonパッケージ設定ファイル
 - setup.py  
-Pythonパッケージインストールスクリプト
+Pythonパッケージインストールスクリプト  
+
+![test](https://github.com/Wataru0619/system_monitor/actions/workflows/ros2_test.yml/badge.svg)  
+GithubActionsによるテスト結果バッジ
 # 使用方法
 
 # 実行例
