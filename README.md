@@ -2,13 +2,15 @@
 
 # 概要
 このリポジトリは、ROS2用のパッケージです。  
-システムのCPU周波数、コア数、メモリ使用量などの情報を取得し、指定したトピック(`/system_info`)にパブリッシュします。
+システムのCPU使用率　メモリ使用率　送受信データ量の情報を取得し、指定したトピック(`/system_info`)にパブリッシュします。
 
 # 内容
 - .github/workflows  
 GithubActions用プログラム
 - resource  
-- system_monitor  
+- system_monitor
+システムのCPU使用率　メモリ使用率　送受信データ量の情報を取得し、指定したト>
+ピック(`/system_info`)にパブリッシュするプログラム。
 - test  
 テスト用プログラム
 - COPYING  
@@ -37,10 +39,27 @@ $ ros2 topic echo /system_info
 # 実行例
 - 送信  
 ```
+[INFO] [1736085754.506566148] [system_info_publisher]: Success
+[INFO] [1736085759.491369972] [system_info_publisher]: Success
 
 ```
 - 受信
 ```
+data: 'CPU Usage: 0.0%
+
+  Memory Usage: 0.45 GB / 15.49 GB (4.6% used)
+
+  Network Traffic: Sent: 3.48 MB, Received: 26.26 MB
+
+  '
+---
+data: 'CPU Usage: 0.0%
+
+  Memory Usage: 0.45 GB / 15.49 GB (4.7% used)
+
+  Network Traffic: Sent: 3.49 MB, Received: 26.26 MB
+
+  '
   
 ```
 # 動作環境

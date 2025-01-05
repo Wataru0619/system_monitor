@@ -42,7 +42,7 @@ class SystemInfoPublisher(Node):
         msg = String()
         msg.data = message
         self.publisher_.publish(msg)
-        self.get_logger().info('Successfully published system info')
+        self.get_logger().info('Success')
 
 def main(args=None):
     rclpy.init(args=args)
