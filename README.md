@@ -37,10 +37,9 @@ data: 'CPU Usage: 0.0%
   
 ```
 # 動作環境
-- OS: Linux  
+- OS: ubuntu-22.04  
 - Python: 3.7  
-- ROS2  
-- ubuntu-22.04  
+- ROS2: Foxy Fitzroy  
 
 # ライセンス
 - このソフトウェアパッケージは、GPL3.0ライセンスの下、再頒布および使用が許可されます。
