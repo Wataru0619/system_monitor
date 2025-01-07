@@ -2,38 +2,17 @@
 
 # 概要
 このリポジトリは、ROS2用のパッケージです。  
-システムのCPU使用率　メモリ使用率　送受信データ量の情報を取得し、指定したトピック(`/system_info`)にパブリッシュします。
-
-# 内容
-- .github/workflows  
-GithubActions用プログラム
-- resource  
-リソースファイル（今回は使用しない）
-- system_monitor
-システムのCPU使用率　メモリ使用率　送受信データ量の情報を取得し、指定したト>
-ピック(`/system_info`)にパブリッシュするプログラム。
-- test  
-テスト用プログラム
-- COPYING  
-ライセンスに関する文章
-- README.md  
-この説明書
-- package.xml  
-ROS2パッケージ設定ファイル
-- setup.cfg  
-Pythonパッケージ設定ファイル
-- setup.py  
-Pythonパッケージインストールスクリプト  
+システムのCPU使用率、メモリ使用率、送受信データ量の情報を取得し、指定したトピック(`/system_info`)にパブリッシュします。  
 
 ![test](https://github.com/Wataru0619/system_monitor/actions/workflows/test.yml/badge.svg)  
 GithubActionsによるテスト結果バッジ
+
 # 使用方法
-1.ROS2のワークスペースにこのパッケージを追加します。  
-2.以下のコマンドでシステム情報を出力します。　　
+1.以下のコマンドでシステム情報を出力します。　　
 ``` 
 $ ros2 run system_monitor system_info_publisher  
 ``` 
-3.受信側で以下のコマンドを入力し、システム情報を受信します。
+2.受信側で以下のコマンドを入力し、システム情報を受信します。
 ```
 $ ros2 topic echo /system_info
 ```
@@ -61,12 +40,10 @@ data: 'CPU Usage: 0.0%
 - OS: Linux  
 - Python: 3.7  
 - ROS2  
-
-# テスト環境
 - ubuntu-22.04  
 
 # ライセンス
-- このソフトウェアパッケージは，GPL3.0ライセンスの下，再頒布および使用が許可されます．
+- このソフトウェアパッケージは、GPL3.0ライセンスの下、再頒布および使用が許可されます。
 - このパッケージのテストには下記リンクのものを使用しています。
 - ryuichiueda/ubuntu22.04-ros2:latest
 - © 2025 Wataru Suenagia
