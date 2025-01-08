@@ -8,7 +8,7 @@
 GithubActionsによるテスト結果バッジ
 
 # 使用方法
-1.以下のコマンドでシステム情報を出力します。　　
+1.送信側で以下のコマンドを入力し、システム情報を送信します。　　
 ``` 
 $ ros2 run system_monitor system_info_publisher  
 ``` 
