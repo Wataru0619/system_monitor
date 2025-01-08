@@ -1,4 +1,4 @@
-#!/bin/bash
+#/usr/bin/python3
 # SPDX-FileCopyrightText: 2025 Wataru Suenaga
 # SPDX-License-Identifier: GPL-3.0-only
 
@@ -17,7 +17,7 @@ class SystemInfoPublisher(Node):
     def publish_system_info(self):
         try:
             # CPU使用率
-            cpu_usage = psutil.cpu_percent(interval=1)  
+            cpu_usage = psutil.cpu_percent(interval=None)  
             # メモリ使用量
             memory_info = psutil.virtual_memory()
             memory_used = memory_info.used / (1024 ** 3) 
@@ -35,7 +35,8 @@ class SystemInfoPublisher(Node):
 
         except Exception as e:
             self.get_logger().error(f"Error retrieving system info: {str(e)}")
-            sys.exit(1)
+            self.destroy_node()
+            rclpy.shutdown()
 
         # 送信
         msg = String()
