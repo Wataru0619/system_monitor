@@ -42,7 +42,7 @@ data: 'CPU Usage: 0.0%
 
 # ライセンス
 - このソフトウェアパッケージは、GPL3.0ライセンスの下、再頒布および使用が許可されます。
-- このパッケージのテストには、以下のDockerイメージを使用しています：  
+- このパッケージのテストには、以下のDockerイメージを使用しています。  
   [ryuichiueda/ubuntu22.04-ros2:latest](https://hub.docker.com/r/ryuichiueda/ubuntu22.04-ros2)
 - © 2025 Wataru Suenagia
 
