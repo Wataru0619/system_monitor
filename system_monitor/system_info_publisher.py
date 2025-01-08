@@ -1,4 +1,4 @@
-#/usr/bin/python3
+#!/usr/bin/python3
 # SPDX-FileCopyrightText: 2025 Wataru Suenaga
 # SPDX-License-Identifier: GPL-3.0-only
 
